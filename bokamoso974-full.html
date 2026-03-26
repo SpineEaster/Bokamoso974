@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bokamoso 97.4 FM — Lesotho's Voice</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & VARIABLES ===== */
+:root {
+  --bg:#080810; --surface:#10101c; --surface2:#18182a; --surface3:#1e1e30;
+  --border:#ffffff0f; --border2:#ffffff18;
+  --red:#c0122c; --red-glow:rgba(192,18,44,.4); --red-light:#e01535; --red-dim:rgba(192,18,44,.08);
+  --gold:#e8b84b; --text:#f0f0f4; --muted:#6a6a8a; --muted2:#9090b0;
+  --r:6px; --r2:10px;
+  --transition: .3s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ===== TYPOGRAPHY ===== */
+.bb{font-family:'Bebas Neue',sans-serif;letter-spacing:2px}
+.bc{font-family:'Barlow Condensed',sans-serif}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+/* ===== OVERLAY ===== */
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:90;opacity:0;pointer-events:none;transition:opacity var(--transition);backdrop-filter:blur(4px)}
+#overlay.open{opacity:1;pointer-events:all}
+
+/* ===== DRAWER ===== */
+#drawer{position:fixed;top:0;left:0;width:290px;height:100vh;background:#0c0c1a;border-right:1px solid var(--border);z-index:100;transform:translateX(-100%);transition:transform var(--transition);display:flex;flex-direction:column;overflow-y:auto}
+#drawer.open{transform:translateX(0)}
+.dr-top{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--border)}
+.dr-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px}
+.dr-logo span{color:var(--red)}
+.dr-close{background:none;border:none;color:var(--muted);font-size:20px;line-height:1;transition:color .2s}
+.dr-close:hover{color:var(--text)}
+.dr-nav{flex:1;padding:12px 0}
+.dr-sep{padding:18px 22px 6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-family:'Barlow Condensed',sans-serif;font-weight:700;pointer-events:none}
+.dr-link{display:flex;align-items:center;gap:10px;padding:11px 22px;color:var(--muted2);font-size:13px;font-weight:500;border-left:2px solid transparent;transition:all .2s;cursor:pointer}
+.dr-link:hover,.dr-link.active{color:var(--text);border-left-color:var(--red);background:var(--red-dim);padding-left:28px}
+.dr-link .icon{font-size:15px;width:18px;text-align:center}
+.dr-bottom{padding:16px 22px;border-top:1px solid var(--border)}
+.dr-socials{display:flex;gap:10px}
+.dr-soc{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);transition:all .2s}
+.dr-soc:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+
+/* ===== NAVBAR ===== */
+#nav{position:sticky;top:0;z-index:80;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,8,16,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.nav-l{display:flex;align-items:center;gap:16px}
+#menuBtn{background:none;border:none;display:flex;flex-direction:column;gap:5px;padding:6px}
+#menuBtn span{display:block;width:22px;height:2px;background:var(--text);transition:.3s;border-radius:2px}
+#menuBtn:hover span{background:var(--red)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;cursor:pointer}
+.nav-logo span{color:var(--red)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.live-pill{display:flex;align-items:center;gap:7px;background:var(--red);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s}
+.live-pill:hover{background:var(--red-light);box-shadow:0 0 24px var(--red-glow)}
+.dot-pulse{width:7px;height:7px;background:#fff;border-radius:50%;animation:pulse 1.3s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+
+/* ===== TICKER ===== */
+.ticker{background:var(--red);height:32px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:1}
+.ticker-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;padding:0 16px;white-space:nowrap;background:rgba(0,0,0,.2);height:100%;display:flex;align-items:center;flex-shrink:0}
+.ticker-wrap{overflow:hidden;flex:1}
+.ticker-track{display:flex;gap:50px;white-space:nowrap;animation:tick 35s linear infinite;font-size:12.5px}
+.ticker-track .sep{opacity:.5}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ===== PAGE ENGINE ===== */
+.page{display:none;animation:fadeIn .35s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== SHARED SECTION STYLES ===== */
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.sec{padding:64px 0;position:relative;z-index:1}
+.sec-sm{padding:40px 0}
+.sec-dark{background:var(--bg)}
+.sec-surface{background:var(--surface)}
+.sec-surface2{background:var(--surface2)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;gap:16px}
+.sh-title{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:2px}
+.sh-title span{color:var(--red)}
+.sh-link{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-weight:700;transition:color .2s;white-space:nowrap;cursor:pointer}
+.sh-link:hover{color:var(--red)}
+
+/* ===== PAGE HERO (inner pages) ===== */
+.page-hero{padding:56px 0 40px;background:linear-gradient(160deg,rgba(192,18,44,.12) 0%,transparent 60%),var(--surface);border-bottom:1px solid var(--border)}
+.page-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,70px);letter-spacing:2px;margin-bottom:10px}
+.page-hero h1 span{color:var(--red)}
+.page-hero p{color:var(--muted2);max-width:600px;line-height:1.7;font-size:15px}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:16px}
+.breadcrumb .sep{color:var(--red)}
+.breadcrumb span{color:var(--text)}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:var(--r);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-red{background:var(--red);color:#fff;padding:12px 26px}
+.btn-red:hover{background:var(--red-light);box-shadow:0 0 28px var(--red-glow)}
+.btn-ghost{background:transparent;color:var(--text);padding:11px 26px;border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
+.btn-outline-red{background:transparent;color:var(--red);padding:11px 26px;border:1px solid rgba(192,18,44,.4)}
+.btn-outline-red:hover{background:var(--red-dim)}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);transition:all .3s}
+.card:hover{border-color:rgba(192,18,44,.3);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.card-red-top{position:relative;overflow:hidden}
+.card-red-top::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.card-red-top:hover::before{transform:scaleX(1)}
+
+/* ===== TAG ===== */
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:12px}
+.tag-red{color:var(--red);border:1px solid rgba(192,18,44,.35);background:var(--red-dim)}
+.tag-live{color:#fff;background:var(--red);animation:pulse-bg 1.5s infinite}
+@keyframes pulse-bg{0%,100%{background:var(--red)}50%{background:var(--red-light)}}
+
+/* =====================
+   HOME PAGE
+===================== */
+.hero{position:relative;min-height:540px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 70% 50%,rgba(192,18,44,.15) 0%,transparent 65%),radial-gradient(ellipse 30% 40% at 15% 80%,rgba(100,10,20,.18) 0%,transparent 55%),linear-gradient(160deg,#0a0a18 0%,#080810 100%);z-index:0}
+.hero-wave{position:absolute;right:0;top:50%;transform:translateY(-50%);width:45%;height:100%;opacity:.06;display:flex;align-items:center;justify-content:flex-end;padding-right:40px;z-index:0}
+.wave-bars{display:flex;align-items:center;gap:5px;height:180px}
+.wave-bars .bar{width:4px;border-radius:2px;background:var(--red);animation:wavebar 1.5s ease-in-out infinite}
+@keyframes wavebar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.hero-c{position:relative;z-index:1;padding:80px 0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-family:'Barlow Condensed',sans-serif;font-weight:700;margin-bottom:18px;border:1px solid rgba(192,18,44,.35);padding:5px 14px;border-radius:20px;background:var(--red-dim)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,8vw,108px);line-height:.92;letter-spacing:2px;margin-bottom:22px}
+.hero-title .freq{color:var(--red);text-shadow:0 0 50px rgba(192,18,44,.5)}
+.hero-sub{font-size:16px;color:var(--muted2);line-height:1.7;margin-bottom:34px;max-width:480px;font-weight:300}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap}
+.freq-badges{display:flex;gap:10px;margin-top:44px;flex-wrap:wrap}
+.freq-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted2);border:1px solid var(--border);border-radius:4px;padding:5px 12px}
+.freq-badge strong{color:var(--text)}
+
+/* On Air Strip */
+.air-strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0}
+.air-inner{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.air-badge{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--red);white-space:nowrap}
+.air-name{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;letter-spacing:.5px}
+.air-with{font-size:13px;color:var(--muted2)}
+.air-time{font-size:13px;color:var(--muted);margin-left:auto}
+
+/* Presenter Carousel */
+.pcaro{position:relative;overflow:hidden}
+.ptrack{display:flex;gap:18px;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.pcard{flex:0 0 200px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all .3s}
+.pcard:hover{border-color:rgba(192,18,44,.5);transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.pavatar{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#141428 0%,#2a1525 100%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:60px;color:rgba(192,18,44,.35);position:relative;overflow:hidden}
+.pavatar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(8,8,16,.8),transparent)}
+.pinfo{padding:14px}
+.pname{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.3px;margin-bottom:3px}
+.pshow{font-size:12px;color:var(--muted2);line-height:1.4}
+.ptime{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--red);margin-top:7px}
+.caro-ctrl{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:26px}
+.caro-btn{width:38px;height:38px;border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;cursor:pointer}
+.caro-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+.caro-dots{display:flex;gap:6px}
+.cdot{width:6px;height:6px;border-radius:3px;background:var(--border2);cursor:pointer;transition:all .3s}
+.cdot.on{background:var(--red);width:20px}
+
+/* Schedule */
+.day-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto;padding-bottom:0;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.dtab{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 20px;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap}
+.dtab:hover{color:var(--text)}
+.dtab.on{color:var(--text);border-bottom-color:var(--red)}
+.sgrid{display:none;flex-direction:column;gap:2px;margin-top:2px}
+.sgrid.on{display:flex}
+.srow{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;gap:18px;transition:all .2s;cursor:pointer}
+.srow:hover{border-color:rgba(192,18,44,.3);background:var(--surface2);transform:translateX(4px)}
+.srow.now{border-left:3px solid var(--red);background:rgba(192,18,44,.05)}
+.s-time{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;color:var(--muted);min-width:110px;white-space:nowrap}
+.srow.now .s-time{color:var(--red)}
+.s-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0}
+.srow.now .s-dot{background:var(--red);animation:pulse .9s infinite}
+.s-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.3px;flex:1}
+.s-pres{font-size:13px;color:var(--muted2)}
+.s-pres strong{color:var(--text);font-weight:500}
+
+/* News */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.news-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;display:flex;flex-direction:column;transition:all .3s;cursor:pointer}
+.news-card:hover{border-color:rgba(192,18,44,.35);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.4)}
+.news-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#141428,#1e1028);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,.04);overflow:hidden}
+.news-thumb img{width:100%;height:100%;object-fit:cover}
+.news-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.news-cat{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:9px}
+.news-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:9px}
+.news-exc{font-size:13px;color:var(--muted2);line-height:1.6;flex:1}
+.news-meta{font-size:12px;color:var(--muted);margin-top:12px;font-family:'Barlow Condensed',sans-serif}
+
+/* Advertise Banner */
+.adv-banner{background:linear-gradient(130deg,rgba(192,18,44,.18) 0%,transparent 55%),var(--surface2);border:1px solid rgba(192,18,44,.2);border-radius:var(--r2);padding:52px 48px;text-align:center}
+.adv-banner .sh-title{justify-content:center;font-size:44px}
+.adv-sub{color:var(--muted2);max-width:500px;margin:14px auto 30px;line-height:1.7}
+.client-row{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:44px;opacity:.45}
+.client-chip{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);border:1px solid var(--border);padding:7px 16px;border-radius:4px}
+
+/* Freq section */
+.freq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fcard{padding:28px 24px;position:relative;overflow:hidden}
+.fnum{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--red);letter-spacing:1px;line-height:1;margin-bottom:6px}
+.freg{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.fcov{font-size:13px;color:var(--muted2);line-height:1.5}
+
+/* =====================
+   ABOUT / CORPORATE
+===================== */
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:40px;align-items:start}
+.about-text p{font-size:15px;line-height:1.8;color:var(--muted2);margin-bottom:18px}
+.about-text p strong{color:var(--text)}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.stat-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;border-top:2px solid var(--red)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--red);letter-spacing:1px}
+.stat-lbl{font-size:12px;color:var(--muted2);letter-spacing:.5px;margin-top:4px}
+.about-sidebar{display:flex;flex-direction:column;gap:16px}
+.info-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:22px}
+.info-block h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.info-block p,.info-block li{font-size:13px;color:var(--muted2);line-height:1.7}
+.info-block ul{list-style:none;padding:0}
+.info-block li{padding:5px 0;border-bottom:1px solid var(--border)}
+.info-block li:last-child{border:none}
+.info-block li::before{content:'→ ';color:var(--red)}
+
+/* =====================
+   PRESENTERS PAGE
+===================== */
+.pres-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.pres-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all .3s;cursor:pointer}
+.pres-card:hover{border-color:rgba(192,18,44,.4);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.pres-av{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#141428,#2a1525);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:64px;color:rgba(192,18,44,.3);position:relative}
+.pres-av::after{content:'';position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(8,8,16,.85),transparent)}
+.pres-av img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pres-info{padding:16px}
+.pres-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.pres-show{font-size:12.5px;color:var(--muted2);line-height:1.4}
+.pres-time{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--red);margin-top:8px}
+.pres-days{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* =====================
+   SHOWS PAGE
+===================== */
+.shows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.show-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all .3s}
+.show-card:hover{border-color:rgba(192,18,44,.4);transform:translateY(-4px)}
+.show-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#141428,#1e1035);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(192,18,44,.2);border-bottom:1px solid var(--border)}
+.show-body{padding:18px}
+.show-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.5px;margin-bottom:6px}
+.show-sub{font-size:13px;color:var(--muted2);line-height:1.5;margin-bottom:12px}
+.show-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.show-time-tag{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--red)}
+.show-days-tag{font-size:11px;color:var(--muted);font-family:'Barlow Condensed',sans-serif}
+
+/* =====================
+   RATES / ADVERTISE
+===================== */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:52px}
+.pkg-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:28px;position:relative;overflow:hidden;transition:all .3s}
+.pkg-card:hover{border-color:rgba(192,18,44,.35)}
+.pkg-card.featured{border-color:rgba(192,18,44,.5);background:rgba(192,18,44,.06)}
+.pkg-badge{position:absolute;top:16px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:#fff;padding:3px 10px;border-radius:12px}
+.pkg-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1.5px;margin-bottom:6px}
+.pkg-price{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);letter-spacing:1px;line-height:1;margin-bottom:4px}
+.pkg-price-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.pkg-feats{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.pkg-feats li{font-size:13px;color:var(--muted2);padding-left:16px;position:relative}
+.pkg-feats li::before{content:'✓';position:absolute;left:0;color:var(--red);font-weight:700}
+.rate-table-wrap{overflow-x:auto;margin-bottom:32px}
+.rate-table{width:100%;border-collapse:collapse;font-size:14px}
+.rate-table th{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--red);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(192,18,44,.3);background:rgba(192,18,44,.06)}
+.rate-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--muted2)}
+.rate-table tr:hover td{background:var(--surface2);color:var(--text)}
+.rate-table td:last-child,.rate-table th:last-child{text-align:right;color:var(--text);font-weight:600}
+.rate-section-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:2px;text-transform:uppercase;color:var(--text);margin:32px 0 12px;border-left:3px solid var(--red);padding-left:14px}
+
+/* =====================
+   SERVICES PAGE
+===================== */
+.svcs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc-card{padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+.svc-icon{font-size:32px;width:56px;height:56px;background:var(--red-dim);border:1px solid rgba(192,18,44,.25);border-radius:var(--r);display:flex;align-items:center;justify-content:center}
+.svc-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.5px}
+.svc-desc{font-size:13px;color:var(--muted2);line-height:1.6;flex:1}
+
+/* =====================
+   CONTACT PAGE
+===================== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.cform{display:flex;flex-direction:column;gap:16px}
+.cform label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);display:block;margin-bottom:6px}
+.cform input,.cform textarea,.cform select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color .2s;outline:none}
+.cform input:focus,.cform textarea:focus,.cform select:focus{border-color:rgba(192,18,44,.5)}
+.cform textarea{resize:vertical;min-height:120px}
+.cform select option{background:var(--surface2)}
+.contact-info{display:flex;flex-direction:column;gap:16px}
+.cinfo-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:22px;display:flex;gap:14px;align-items:flex-start}
+.cinfo-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.cinfo-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.cinfo-text{font-size:13px;color:var(--muted2);line-height:1.6}
+
+/* =====================
+   CAMPAIGNS
+===================== */
+.csi-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.csi-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:32px;transition:all .3s}
+.csi-card:hover{border-color:rgba(192,18,44,.3)}
+.csi-icon{font-size:36px;margin-bottom:16px}
+.csi-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1.5px;margin-bottom:10px}
+.csi-name span{color:var(--red)}
+.csi-desc{font-size:14px;color:var(--muted2);line-height:1.7;margin-bottom:20px}
+.csi-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.csi-list li{font-size:13px;color:var(--muted2);padding-left:16px;position:relative}
+.csi-list li::before{content:'▸';position:absolute;left:0;color:var(--red)}
+
+/* =====================
+   FOOTER
+===================== */
+footer{background:#06060f;border-top:1px solid var(--border);padding:50px 0 24px;position:relative;z-index:1}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-brand .logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;margin-bottom:12px}
+.foot-brand .logo span{color:var(--red)}
+.foot-brand p{font-size:13px;color:var(--muted);line-height:1.7;max-width:270px}
+.foot-socs{display:flex;gap:10px;margin-top:18px}
+.foot-soc{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);transition:all .2s;cursor:pointer}
+.foot-soc:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+.foot-col h4{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);margin-bottom:16px}
+.foot-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:9px;cursor:pointer;transition:color .2s}
+.foot-col a:hover{color:var(--red)}
+.foot-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.foot-copy{font-size:12px;color:var(--muted)}
+.foot-copy span{color:var(--red)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){.pkg-grid,.svcs-grid,.freq-grid,.news-grid{grid-template-columns:1fr 1fr}.about-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.wrap{padding:0 18px}.sec{padding:44px 0}.hero-c{padding:60px 0}.freq-grid,.news-grid,.csi-grid,.contact-grid,.pkg-grid{grid-template-columns:1fr}.ptrack{}.pcard{flex:0 0 160px}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.pres-grid{grid-template-columns:1fr 1fr}.shows-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ===== OVERLAY ===== -->
+<div id="overlay" onclick="closeDrawer()"></div>
+
+<!-- ===== DRAWER ===== -->
+<nav id="drawer">
+  <div class="dr-top">
+    <span class="dr-logo">BOKAMOSO <span>974</span></span>
+    <button class="dr-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="dr-nav">
+    <div class="dr-sep">Main</div>
+    <div class="dr-link active" onclick="nav('home')"><span class="icon">🏠</span> Home</div>
+    <div class="dr-link" onclick="nav('shows')"><span class="icon">🎙</span> Shows</div>
+    <div class="dr-link" onclick="nav('presenters')"><span class="icon">👤</span> Presenters</div>
+    <div class="dr-link" onclick="nav('schedule')"><span class="icon">📅</span> Full Schedule</div>
+    <div class="dr-sep">About the Station</div>
+    <div class="dr-link" onclick="nav('about')"><span class="icon">🏢</span> About Us</div>
+    <div class="dr-link" onclick="nav('about')"><span class="icon">📋</span> Corporate Profile</div>
+    <div class="dr-link" onclick="nav('frequencies')"><span class="icon">📡</span> Frequencies</div>
+    <div class="dr-sep">Services & Business</div>
+    <div class="dr-link" onclick="nav('advertise')"><span class="icon">📢</span> Advertise</div>
+    <div class="dr-link" onclick="nav('rates')"><span class="icon">💰</span> Rates</div>
+    <div class="dr-link" onclick="nav('services')"><span class="icon">🎬</span> Our Services</div>
+    <div class="dr-link" onclick="nav('campaigns')"><span class="icon">❤️</span> Campaigns</div>
+    <div class="dr-sep">Connect</div>
+    <div class="dr-link" onclick="nav('contact')"><span class="icon">📞</span> Contact Us</div>
+  </div>
+  <div class="dr-bottom">
+    <div class="dr-socials">
+      <a class="dr-soc" href="https://www.facebook.com/bokamoso974/" target="_blank">f</a>
+      <a class="dr-soc" href="#">𝕏</a>
+      <a class="dr-soc" href="#">◎</a>
+      <a class="dr-soc" href="#">✆</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== NAVBAR ===== -->
+<header id="nav">
+  <div class="nav-l">
+    <button id="menuBtn" onclick="openDrawer()"><span></span><span></span><span></span></button>
+    <div class="nav-logo" onclick="nav('home')">BOKAMOSO <span>974</span></div>
+  </div>
+  <div class="nav-r">
+    <button class="live-pill" onclick="nav('home')"><span class="dot-pulse"></span>LISTEN LIVE</button>
+  </div>
+</header>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker">
+  <div class="ticker-lbl">📡 LIVE</div>
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <span id="tickerNow">Loading schedule...</span>
+      <span class="sep">◆</span>
+      <span>97.4 FM — Maseru &amp; Berea</span><span class="sep">◆</span>
+      <span>98.2 FM — Butha-Buthe, Leribe &amp; Mokhotlong</span><span class="sep">◆</span>
+      <span>92.6 FM — Mohale's Hoek, Mafeteng &amp; Quthing</span><span class="sep">◆</span>
+      <span>Lesotho's Premier Commercial Radio Station</span><span class="sep">◆</span>
+      <span id="tickerNow2">Loading...</span>
+      <span class="sep">◆</span>
+      <span>97.4 FM — Maseru &amp; Berea</span><span class="sep">◆</span>
+      <span>98.2 FM — Butha-Buthe, Leribe &amp; Mokhotlong</span><span class="sep">◆</span>
+      <span>92.6 FM — Mohale's Hoek, Mafeteng &amp; Quthing</span><span class="sep">◆</span>
+      <span>Lesotho's Premier Commercial Radio Station</span><span class="sep">◆</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGES
+============================================================ -->
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-wave"><div class="wave-bars" id="waveBars"></div></div>
+    <div class="wrap hero-c" style="width:100%">
+      <div class="hero-eyebrow"><span class="dot-pulse" style="background:var(--red)"></span> Broadcasting Live Across Lesotho</div>
+      <h1 class="hero-title">BOKAMOSO<br><span class="freq">97.4 FM</span></h1>
+      <p class="hero-sub">Lesotho's leading commercial radio station. Bold conversations, great music, real people — connecting communities since day one.</p>
+      <div class="hero-acts">
+        <button class="btn btn-red" onclick="nav('shows')">▶ Our Shows</button>
+        <button class="btn btn-ghost" onclick="nav('about')">About Us</button>
+      </div>
+      <div class="freq-badges">
+        <div class="freq-badge"><strong>97.4 FM</strong> · Maseru</div>
+        <div class="freq-badge"><strong>98.2 FM</strong> · Leribe</div>
+        <div class="freq-badge"><strong>92.6 FM</strong> · Mohale's Hoek</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- On Air -->
+  <div class="air-strip">
+    <div class="wrap air-inner" style="width:100%">
+      <div class="air-badge"><span class="dot-pulse"></span> NOW ON AIR</div>
+      <div class="s-dot" style="background:var(--red);animation:pulse .9s infinite"></div>
+      <span class="air-name" id="onAirName">Loading...</span>
+      <span class="air-with" id="onAirWith"></span>
+      <span class="air-time" id="onAirTime"></span>
+    </div>
+  </div>
+
+  <!-- Presenters -->
+  <div class="sec sec-surface">
+    <div class="wrap">
+      <div class="sh"><h2 class="sh-title">OUR <span>PRESENTERS</span></h2><span class="sh-link" onclick="nav('presenters')">View all →</span></div>
+      <div class="pcaro">
+        <div class="ptrack" id="ptrack">
+          <div class="pcard"><div class="pavatar">Q</div><div class="pinfo"><div class="pname">Quizy</div><div class="pshow">974 Mornings</div><div class="ptime">06:00 – 09:00</div></div></div>
+          <div class="pcard"><div class="pavatar">E</div><div class="pinfo"><div class="pname">Miss E</div><div class="pshow">974 Mornings</div><div class="ptime">06:00 – 09:00</div></div></div>
+          <div class="pcard"><div class="pavatar">D</div><div class="pinfo"><div class="pname">Dramaqueen</div><div class="pshow">Midmorning Breeze</div><div class="ptime">09:00 – 12:00</div></div></div>
+          <div class="pcard"><div class="pavatar">H</div><div class="pinfo"><div class="pname">Haps &amp; Haps</div><div class="pshow">PulsePoint</div><div class="ptime">12:00 – 15:00</div></div></div>
+          <div class="pcard"><div class="pavatar">Z</div><div class="pinfo"><div class="pname">DJ Zero</div><div class="pshow">974 Drive</div><div class="ptime">15:00 – 18:00</div></div></div>
+          <div class="pcard"><div class="pavatar">K</div><div class="pinfo"><div class="pname">KingJay</div><div class="pshow">974 Drive</div><div class="ptime">15:00 – 18:00</div></div></div>
+          <div class="pcard"><div class="pavatar">M</div><div class="pinfo"><div class="pname">Mojaki Thokojane</div><div class="pshow">Motsong oa Teng</div><div class="ptime">18:00 – 19:00</div></div></div>
+          <div class="pcard"><div class="pavatar">L</div><div class="pinfo"><div class="pname">Lehlohonolo Mpo</div><div class="pshow">In Conversations</div><div class="ptime">Tue–Thu 19:00</div></div></div>
+          <div class="pcard"><div class="pavatar">P</div><div class="pinfo"><div class="pname">Peterlex Mpakanyane</div><div class="pshow">Sports Show</div><div class="ptime">Mon &amp; Fri 19:00</div></div></div>
+          <div class="pcard"><div class="pavatar">M</div><div class="pinfo"><div class="pname">Makhosi Holeata</div><div class="pshow">Love Boat</div><div class="ptime">21:00 – 00:00</div></div></div>
+          <div class="pcard"><div class="pavatar">W</div><div class="pinfo"><div class="pname">Walter</div><div class="pshow">Nightshift</div><div class="ptime">00:00 – 05:00</div></div></div>
+          <div class="pcard"><div class="pavatar">C</div><div class="pinfo"><div class="pname">Chris Theko</div><div class="pshow">AM News</div><div class="ptime">05:00 – 06:00</div></div></div>
+        </div>
+      </div>
+      <div class="caro-ctrl"><button class="caro-btn" onclick="prevSlide()">‹</button><div class="caro-dots" id="caroDots"></div><button class="caro-btn" onclick="nextSlide()">›</button></div>
+    </div>
+  </div>
+
+  <!-- Schedule (home preview) -->
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="sh"><h2 class="sh-title">TODAY'S <span>SCHEDULE</span></h2><span class="sh-link" onclick="nav('schedule')">Full schedule →</span></div>
+      <div id="homeSchedule"></div>
+    </div>
+  </div>
+
+  <!-- Frequencies -->
+  <div class="sec sec-surface">
+    <div class="wrap">
+      <div class="sh"><h2 class="sh-title">OUR <span>FREQUENCIES</span></h2></div>
+      <div class="freq-grid">
+        <div class="card card-red-top fcard"><div class="fnum">97.4</div><div class="freg">Maseru &amp; Berea</div><div class="fcov">Our flagship frequency — the heartbeat of the capital and surrounding areas.</div></div>
+        <div class="card card-red-top fcard"><div class="fnum">98.2</div><div class="freg">Northern Region</div><div class="fcov">Butha-Buthe, Leribe &amp; Mokhotlong — reaching the full north of Lesotho.</div></div>
+        <div class="card card-red-top fcard"><div class="fnum">92.6</div><div class="freg">Southern Region</div><div class="fcov">Mohale's Hoek, Mafeteng &amp; Quthing — covering the entire southern region.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest News -->
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="sh"><h2 class="sh-title">LATEST <span>NEWS</span></h2><span class="sh-link">All stories →</span></div>
+      <div class="news-grid">
+        <div class="news-card"><div class="news-thumb"><img src="http://bokamoso974.co.ls/wp-content/uploads/2024/07/SAPP-Trade-Info-WS_LS_Jul24bcGIZ-300x200.png" alt="" onerror="this.parentElement.innerHTML='974'"></div><div class="news-body"><div class="news-cat">Featured Story</div><div class="news-title">Power Market Expansion: Lesotho to set up SAPP Trading Office</div><div class="news-exc">Lesotho moves to strengthen its position in southern Africa's energy trade network through a new SAPP office.</div><div class="news-meta">July 2024 · 1 min read</div></div></div>
+        <div class="news-card"><div class="news-thumb"><img src="http://bokamoso974.co.ls/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-03-at-15.48.15_f4915b6e-300x200.jpg" alt="" onerror="this.parentElement.innerHTML='974'"></div><div class="news-body"><div class="news-cat">Local</div><div class="news-title">Letšeng Diamonds Engages with Media</div><div class="news-exc">Representatives from Letšeng Diamonds held a media engagement session, sharing updates on operations and CSR.</div><div class="news-meta">June 2024 · 1 min read</div></div></div>
+        <div class="news-card"><div class="news-thumb"><img src="http://bokamoso974.co.ls/wp-content/uploads/2024/06/WhatsApp-Image-2024-06-03-at-10.29.07_39544f80-300x225.jpg" alt="" onerror="this.parentElement.innerHTML='974'"></div><div class="news-body"><div class="news-cat">Community</div><div class="news-title">World Vision Lesotho: Education in Emergencies Campaign</div><div class="news-exc">World Vision launches a national campaign to keep children in school during crises and humanitarian challenges.</div><div class="news-meta">June 2024 · 2 min read</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advertise CTA -->
+  <div class="sec sec-surface">
+    <div class="wrap">
+      <div class="adv-banner">
+        <h2 class="sh-title" style="font-size:44px;text-align:center">ADVERTISE ON <span>BOKAMOSO 974</span></h2>
+        <p class="adv-sub">Reach influential audiences across all of Lesotho. Three frequencies. One powerful voice. LSM 4–8 audience aged 24–49.</p>
+        <button class="btn btn-red" onclick="nav('advertise')">Get Started Today</button>
+        <div class="client-row">
+          <span class="client-chip">VCL</span><span class="client-chip">Post Bank</span><span class="client-chip">Standard Bank</span><span class="client-chip">FNB</span><span class="client-chip">KFC</span><span class="client-chip">Zaga Bet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-home -->
+
+
+<!-- ===== ABOUT PAGE ===== -->
+<div id="page-about" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>About Us</span></div><h1>CORPORATE <span>PROFILE</span></h1><p>Lesotho's leading commercial radio station — connecting brands to influential audiences nationwide.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Bokamoso974 is a <strong>leading commercial radio station</strong> headquartered in Maseru, broadcasting across three key frequencies: 97.4 FM (Maseru &amp; Berea), 98.2 FM (Butha-Buthe, Leribe &amp; Mokhotlong), and 92.6 FM (Mohale's Hoek, Mafeteng &amp; Quthing). With national reach and strong regional penetration, Bokamoso974 connects brands to influential audiences across Lesotho.</p>
+          <p>Our station is strategically positioned as a <strong>premium urban broadcaster</strong>, delivering progressive, high-quality programming tailored to a sophisticated and economically active audience. We primarily target listeners aged 24–49, within LSM 4–8, representing emerging and established professionals, entrepreneurs, and decision-makers.</p>
+          <p>Bokamoso974 is a trusted partner to the corporate sector, providing <strong>integrated marketing solutions</strong> and impactful advertising campaigns designed to deliver measurable results. Our commercial offerings include brand activations, sponsored content, on-air promotions, digital amplification, and customized campaign strategies aligned with client objectives.</p>
+          <p>Our programming is structured, dynamic, and informative. <strong>Comprehensive news bulletins</strong> air at the top of every hour, complemented by dedicated sports, business, and entertainment segments throughout the day to ensure our audience remains informed, engaged, and connected.</p>
+          <p>Recognized as one of the fastest-growing radio stations in Lesotho, Bokamoso974 operates with a <strong>forward-thinking programming philosophy</strong> and a modern, data-driven business approach. We are also committed to advancing Lesotho's creative economy by proudly promoting local talent across music, arts, and culture.</p>
+          <div class="about-stats">
+            <div class="stat-card"><div class="stat-num">3</div><div class="stat-lbl">Broadcast Frequencies</div></div>
+            <div class="stat-card"><div class="stat-num">24–49</div><div class="stat-lbl">Primary Audience Age</div></div>
+            <div class="stat-card"><div class="stat-num">LSM 4–8</div><div class="stat-lbl">Audience Profile</div></div>
+            <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">National Coverage</div></div>
+          </div>
+        </div>
+        <div class="about-sidebar">
+          <div class="info-block"><h4>📍 Our Location</h4><p>1010 Building, Ground Floor<br>Pitso Ground<br>Maseru, Lesotho</p></div>
+          <div class="info-block"><h4>📞 Contact Numbers</h4><ul><li>+266 2232 2974</li><li>+266 5858 5177</li><li>+266 6616 0009</li></ul></div>
+          <div class="info-block"><h4>📡 Frequencies</h4><ul><li><strong>97.4 FM</strong> — Maseru &amp; Berea</li><li><strong>98.2 FM</strong> — Butha-Buthe, Leribe &amp; Mokhotlong</li><li><strong>92.6 FM</strong> — Mohale's Hoek, Mafeteng &amp; Quthing</li></ul></div>
+          <div class="info-block"><h4>🤝 Our Clients</h4><ul><li>VCL</li><li>Post Bank</li><li>Standard Bank</li><li>FNB</li><li>KFC</li><li>Zaga Bet</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRESENTERS PAGE ===== -->
+<div id="page-presenters" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Presenters</span></div><h1>MEET OUR <span>PRESENTERS</span></h1><p>The voices that bring Bokamoso 974 to life — every hour of every day.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="pres-grid">
+        <div class="pres-card"><div class="pres-av" style="background:linear-gradient(135deg,#1a1428,#2e1525)"><img src="http://bokamoso974.co.ls/wp-content/uploads/2021/12/Miss-E-Breakfast4Real-1.jpg" alt="Miss E" onerror="this.style.display='none'">E</div><div class="pres-info"><div class="pres-name">Miss E</div><div class="pres-show">974 Mornings</div><div class="pres-time">06:00 – 09:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av">Q</div><div class="pres-info"><div class="pres-name">Quizy</div><div class="pres-show">974 Mornings</div><div class="pres-time">06:00 – 09:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av"><img src="http://bokamoso974.co.ls/wp-content/uploads/2021/08/Drama-Queen-The-Love-Boat-and-The-Rose-Garden-scaled-e1630931877926.jpg" alt="Dramaqueen" onerror="this.style.display='none'">D</div><div class="pres-info"><div class="pres-name">Dramaqueen</div><div class="pres-show">Midmorning Breeze</div><div class="pres-time">09:00 – 12:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av"><img src="http://bokamoso974.co.ls/wp-content/uploads/2021/08/Haps-n-Haps-The-Motivator-and-Khoro-ea-Tumelo-scaled-e1628003487201.jpg" alt="Haps n Haps" onerror="this.style.display='none'">H</div><div class="pres-info"><div class="pres-name">Haps &amp; Haps</div><div class="pres-show">PulsePoint</div><div class="pres-time">12:00 – 15:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av"><img src="http://bokamoso974.co.ls/wp-content/uploads/2021/08/Dj-Zero-The-Nightshift-and-The-Lounge-scaled-e1630931790691.jpg" alt="DJ Zero" onerror="this.style.display='none'">Z</div><div class="pres-info"><div class="pres-name">DJ Zero</div><div class="pres-show">974 Drive</div><div class="pres-time">15:00 – 18:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av">K</div><div class="pres-info"><div class="pres-name">KingJay</div><div class="pres-show">974 Drive</div><div class="pres-time">15:00 – 18:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av">M</div><div class="pres-info"><div class="pres-name">Mojaki Thokojane</div><div class="pres-show">Motsong oa Teng</div><div class="pres-time">18:00 – 19:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av"><img src="http://bokamoso974.co.ls/wp-content/uploads/2021/12/Tebello-Sepoqoane-In-Conversation-1.jpg" alt="Lehlohonolo" onerror="this.style.display='none'">L</div><div class="pres-info"><div class="pres-name">Lehlohonolo Mpo</div><div class="pres-show">In Conversations</div><div class="pres-time">19:00 – 21:00</div><div class="pres-days">Tue – Thu</div></div></div>
+        <div class="pres-card"><div class="pres-av">P</div><div class="pres-info"><div class="pres-name">Peterlex Mpakanyane</div><div class="pres-show">Sports Show</div><div class="pres-time">19:00 – 21:00</div><div class="pres-days">Mon &amp; Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av">M</div><div class="pres-info"><div class="pres-name">Makhosi Holeata</div><div class="pres-show">Love Boat</div><div class="pres-time">21:00 – 00:00</div><div class="pres-days">Mon – Fri</div></div></div>
+        <div class="pres-card"><div class="pres-av">W</div><div class="pres-info"><div class="pres-name">Walter</div><div class="pres-show">Nightshift</div><div class="pres-time">00:00 – 05:00</div><div class="pres-days">Daily</div></div></div>
+        <div class="pres-card"><div class="pres-av">C</div><div class="pres-info"><div class="pres-name">Chris Theko</div><div class="pres-show">AM News</div><div class="pres-time">05:00 – 06:00</div><div class="pres-days">Mon – Fri</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHOWS PAGE ===== -->
+<div id="page-shows" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Shows</span></div><h1>OUR <span>SHOWS</span></h1><p>Structured, dynamic, and informative programming — every hour of the day, tailored for Lesotho.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="shows-grid">
+        <div class="show-card"><div class="show-thumb">🌙</div><div class="show-body"><div class="show-title">Nightshift</div><div class="show-sub">Late night music to keep you company through the quiet hours.</div><div class="show-meta"><span class="show-time-tag">00:00 – 05:00</span><span class="show-days-tag">Daily</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">📰</div><div class="show-body"><div class="show-title">AM News</div><div class="show-sub">Start your morning informed with comprehensive news coverage by Chris Theko.</div><div class="show-meta"><span class="show-time-tag">05:00 – 06:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">☀️</div><div class="show-body"><div class="show-title">974 Mornings</div><div class="show-sub">The biggest morning show in Lesotho — entertainment, news, music and conversations with Quizy &amp; Miss E.</div><div class="show-meta"><span class="show-time-tag">06:00 – 09:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">🌬</div><div class="show-body"><div class="show-title">Midmorning Breeze</div><div class="show-sub">Easy midmorning vibes to keep you flowing through the late morning with Dramaqueen.</div><div class="show-meta"><span class="show-time-tag">09:00 – 12:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">💫</div><div class="show-body"><div class="show-title">PulsePoint</div><div class="show-sub">The midday show keeping your pulse up — great music and conversations with Haps &amp; Haps.</div><div class="show-meta"><span class="show-time-tag">12:00 – 15:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">🚗</div><div class="show-body"><div class="show-title">974 Drive</div><div class="show-sub">The hottest drive time show — keeping Lesotho moving with DJ Zero &amp; KingJay.</div><div class="show-meta"><span class="show-time-tag">15:00 – 18:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">🎵</div><div class="show-body"><div class="show-title">Motsong oa Teng</div><div class="show-sub">A celebration of Basotho music and culture, hosted by Mojaki Thokojane.</div><div class="show-meta"><span class="show-time-tag">18:00 – 19:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">⚽</div><div class="show-body"><div class="show-title">Sports Show</div><div class="show-sub">All the action, analysis and scores from local and international sport with Peterlex Mpakanyane.</div><div class="show-meta"><span class="show-time-tag">19:00 – 21:00</span><span class="show-days-tag">Mon &amp; Fri</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">🗣</div><div class="show-body"><div class="show-title">In Conversations</div><div class="show-sub">Deep, meaningful conversations on the issues that matter to Lesotho, with Lehlohonolo Mpo.</div><div class="show-meta"><span class="show-time-tag">19:00 – 21:00</span><span class="show-days-tag">Tue – Thu</span></div></div></div>
+        <div class="show-card"><div class="show-thumb">💕</div><div class="show-body"><div class="show-title">Love Boat</div><div class="show-sub">Late night love and romance — smooth music and listener dedications with Makhosi Holeata.</div><div class="show-meta"><span class="show-time-tag">21:00 – 00:00</span><span class="show-days-tag">Mon – Fri</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCHEDULE PAGE ===== -->
+<div id="page-schedule" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Schedule</span></div><h1>ON-AIR <span>SCHEDULE</span></h1><p>Full weekly programme guide — click any day to see what's on.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="day-tabs" id="dayTabs2"></div>
+      <div id="fullScheduleContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FREQUENCIES PAGE ===== -->
+<div id="page-frequencies" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Frequencies</span></div><h1>OUR <span>FREQUENCIES</span></h1><p>Bokamoso 974 broadcasts on three frequencies, delivering national reach across Lesotho.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="freq-grid" style="margin-bottom:40px">
+        <div class="card card-red-top fcard"><div class="fnum">97.4</div><div class="freg">Maseru &amp; Berea</div><div class="fcov">Our flagship frequency covering the capital city and Berea district. The heartbeat of Lesotho's premier radio station.</div></div>
+        <div class="card card-red-top fcard"><div class="fnum">98.2</div><div class="freg">Northern Lesotho</div><div class="fcov">Covering Butha-Buthe, Leribe and Mokhotlong — bringing Bokamoso 974 to the full northern region.</div></div>
+        <div class="card card-red-top fcard"><div class="fnum">92.6</div><div class="freg">Southern Lesotho</div><div class="fcov">Reaching Mohale's Hoek, Mafeteng and Quthing — ensuring every corner of the south is covered.</div></div>
+      </div>
+      <div class="info-block" style="max-width:600px">
+        <h4>📡 Stream Online</h4>
+        <p>Can't tune in on FM? You can stream Bokamoso 974 live online from anywhere in the world. Click the "Listen Live" button at the top of the page to tune in.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADVERTISE PAGE ===== -->
+<div id="page-advertise" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Advertise</span></div><h1>ADVERTISE ON <span>BOKAMOSO 974</span></h1><p>Connect your brand to Lesotho's most influential audience. LSM 4–8, aged 24–49, across three national frequencies.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="sh"><h2 class="sh-title">ADVERTISING <span>PACKAGES</span></h2></div>
+      <div class="pkg-grid">
+        <div class="pkg-card card">
+          <div class="pkg-name">Easy Deal</div>
+          <div class="pkg-price">M14,000</div>
+          <div class="pkg-price-sub">per month (value: M2,800)</div>
+          <ul class="pkg-feats">
+            <li>10 adverts per week (40/month)</li>
+            <li>2 radio interviews per month</li>
+            <li>Advert production included</li>
+          </ul>
+          <button class="btn btn-outline-red" onclick="nav('contact')">Enquire Now</button>
+        </div>
+        <div class="pkg-card card featured">
+          <div class="pkg-badge">Popular</div>
+          <div class="pkg-name">Corporate</div>
+          <div class="pkg-price">M19,000</div>
+          <div class="pkg-price-sub">per month (value: M6,800)</div>
+          <ul class="pkg-feats">
+            <li>13 adverts per week (52/month)</li>
+            <li>2 x 15-min interviews/week (4/month)</li>
+            <li>Social media adverts</li>
+            <li>Advert production included</li>
+          </ul>
+          <button class="btn btn-red" onclick="nav('contact')">Enquire Now</button>
+        </div>
+        <div class="pkg-card card">
+          <div class="pkg-name">Executive</div>
+          <div class="pkg-price">M52,500</div>
+          <div class="pkg-price-sub">per month (value: M25,000)</div>
+          <ul class="pkg-feats">
+            <li>22 adverts/week (88/month)</li>
+            <li>15 &amp; 30-min interviews weekly</li>
+            <li>Billboard for news (3 spots/show)</li>
+            <li>Outside broadcasting (once/month)</li>
+            <li>Social media adverts</li>
+            <li>Advert production included</li>
+          </ul>
+          <button class="btn btn-outline-red" onclick="nav('contact')">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="sh" style="margin-top:20px"><h2 class="sh-title">SPOT <span>RATES</span></h2><span class="sh-link" onclick="nav('rates')">Full rate card →</span></div>
+      <p style="color:var(--muted2);font-size:14px;margin-bottom:24px">Advertising with Bokamoso974 places your organisation in a position to really access your target market. We have developed the following products to meet your specific marketing needs and are flexible in tailor-making a campaign to suit your business.</p>
+
+      <div class="rate-section-title">Monday – Friday Spot Rates</div>
+      <div class="rate-table-wrap">
+        <table class="rate-table">
+          <tr><th>Show</th><th>Time Slot</th><th>Rate per Spot</th></tr>
+          <tr><td>Nightshift</td><td>00:00 – 04:00</td><td>M250</td></tr>
+          <tr><td>The Motivator</td><td>04:00 – 06:00</td><td>M300</td></tr>
+          <tr><td>AM News / 974 Mornings</td><td>06:00 – 09:00</td><td>M300</td></tr>
+          <tr><td>Midmorning Breeze</td><td>09:00 – 12:00</td><td>M300</td></tr>
+          <tr><td>PulsePoint</td><td>12:00 – 15:00</td><td>M300</td></tr>
+          <tr><td>974 Drive</td><td>15:00 – 18:00</td><td>M300</td></tr>
+          <tr><td>Motsong oa Teng</td><td>18:00 – 19:00</td><td>M300</td></tr>
+          <tr><td>Sports / In Conversations</td><td>19:00 – 21:00</td><td>M250</td></tr>
+          <tr><td>Love Boat</td><td>21:00 – 00:00</td><td>M250</td></tr>
+        </table>
+      </div>
+
+      <div style="text-align:center;margin-top:32px">
+        <button class="btn btn-red" style="margin-right:12px" onclick="nav('contact')">Get a Custom Quote</button>
+        <button class="btn btn-ghost" onclick="nav('rates')">View Full Rate Card</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RATES PAGE ===== -->
+<div id="page-rates" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> Advertise <span class="sep">›</span> <span>Rates</span></div><h1>FULL <span>RATE CARD</span></h1><p>Transparent pricing for all advertising products and packages on Bokamoso 974 FM.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="rate-section-title">Monday – Friday Spots</div>
+      <div class="rate-table-wrap"><table class="rate-table"><tr><th>Show</th><th>Time Slot</th><th>Rate</th></tr>
+      <tr><td>Nightshift</td><td>00:00 – 04:00</td><td>M250</td></tr>
+      <tr><td>The Motivator</td><td>04:00 – 06:00</td><td>M300</td></tr>
+      <tr><td>AM News / 974 Mornings</td><td>06:00 – 09:00</td><td>M300</td></tr>
+      <tr><td>Midmorning Breeze</td><td>09:00 – 12:00</td><td>M300</td></tr>
+      <tr><td>PulsePoint (Noon Time)</td><td>12:00 – 15:00</td><td>M300</td></tr>
+      <tr><td>974 Drive</td><td>15:00 – 18:00</td><td>M300</td></tr>
+      <tr><td>Motsong oa Teng</td><td>18:00 – 19:00</td><td>M300</td></tr>
+      <tr><td>Sports Show</td><td>19:00 – 20:00</td><td>M250</td></tr>
+      <tr><td>In Conversations</td><td>20:00 – 21:00</td><td>M300</td></tr>
+      <tr><td>Love Boat</td><td>21:00 – 00:00</td><td>M250</td></tr>
+      </table></div>
+
+      <div class="rate-section-title">Saturday Spots</div>
+      <div class="rate-table-wrap"><table class="rate-table"><tr><th>Show</th><th>Time Slot</th><th>Rate</th></tr>
+      <tr><td>The Pump Up</td><td>00:00 – 03:00</td><td>M200</td></tr>
+      <tr><td>Music Time</td><td>03:00 – 06:00</td><td>M200</td></tr>
+      <tr><td>The AM Show</td><td>06:00 – 09:00</td><td>M300</td></tr>
+      <tr><td>Maapara Kobo</td><td>09:00 – 12:00</td><td>M300</td></tr>
+      <tr><td>Crunch Time</td><td>12:00 – 15:00</td><td>M250</td></tr>
+      <tr><td>Mega Madness</td><td>15:00 – 18:00</td><td>M250</td></tr>
+      <tr><td>Saturday Lounge</td><td>18:00 – 22:00</td><td>M300</td></tr>
+      <tr><td>The Pump Up</td><td>22:00 – 00:00</td><td>M200</td></tr>
+      </table></div>
+
+      <div class="rate-section-title">Sunday Spots</div>
+      <div class="rate-table-wrap"><table class="rate-table"><tr><th>Show</th><th>Time Slot</th><th>Rate</th></tr>
+      <tr><td>The Pump Up</td><td>00:00 – 03:00</td><td>M200</td></tr>
+      <tr><td>Music Time</td><td>03:00 – 06:00</td><td>M250</td></tr>
+      <tr><td>Spoken Word</td><td>06:00 – 09:00</td><td>M300</td></tr>
+      <tr><td>Bokamoso Kids</td><td>09:00 – 12:00</td><td>M300</td></tr>
+      <tr><td>Love Sunday</td><td>12:00 – 15:00</td><td>M300</td></tr>
+      <tr><td>Rhythmic Connections</td><td>15:00 – 18:00</td><td>M250</td></tr>
+      <tr><td>The Breeze</td><td>18:00 – 21:00</td><td>M250</td></tr>
+      <tr><td>Khoro ea Tumelo</td><td>21:00 – 00:00</td><td>M200</td></tr>
+      </table></div>
+
+      <div class="rate-section-title">Products &amp; Services Rate Card</div>
+      <div class="rate-table-wrap"><table class="rate-table"><tr><th>Product</th><th>Rate</th></tr>
+      <tr><td>5-Minute Radio Interview (Live/Telephone)</td><td>M500</td></tr>
+      <tr><td>30-Minute Radio Interview</td><td>M3,000</td></tr>
+      <tr><td>1-Hour Radio Interview</td><td>M4,800</td></tr>
+      <tr><td>Billboard for News — 30sec/month (3 spots)</td><td>M1,500</td></tr>
+      <tr><td>Billboard for News — 6 spots</td><td>M3,000</td></tr>
+      <tr><td>Billboard for News — 9 spots</td><td>M4,500</td></tr>
+      <tr><td>Competition Feature (5–10 minutes)</td><td>M1,000</td></tr>
+      <tr><td>Naming Rights &amp; Program (30 min / 4 programs)</td><td>M6,000</td></tr>
+      <tr><td>Sponsorship Feature / Month</td><td>M3,000</td></tr>
+      <tr><td>Advert Production</td><td>M1,000</td></tr>
+      <tr><td>Simultaneous Broadcasting</td><td>M3,500</td></tr>
+      <tr><td>Outside Broadcasting</td><td>M10,000</td></tr>
+      <tr><td>Live Read &amp; Announcement</td><td>M250</td></tr>
+      <tr><td>Live Streaming</td><td>M3,000</td></tr>
+      <tr><td>Podcast / Record</td><td>M500</td></tr>
+      <tr><td>Facebook Page Advertising (per month)</td><td>M2,500</td></tr>
+      </table></div>
+
+      <div style="text-align:center;margin-top:40px">
+        <button class="btn btn-red" onclick="nav('contact')">Request a Custom Quote</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SERVICES PAGE ===== -->
+<div id="page-services" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Our Services</span></div><h1>OUR <span>SERVICES</span></h1><p>Beyond radio — a full-service production and marketing partner for Lesotho's brands.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="svcs-grid">
+        <div class="card card-red-top svc-card"><div class="svc-icon">🎬</div><div class="svc-name">Video Production</div><div class="svc-desc">High-quality video adverts and corporate content. We've produced for brands including Pick n Pay and major Lesotho companies. From concept to final cut — we handle everything.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+        <div class="card card-red-top svc-card"><div class="svc-icon">🎨</div><div class="svc-name">Graphic Design</div><div class="svc-desc">Brand materials, digital artwork, social media content, and print design. Our creative team produces visuals that make your brand stand out across all platforms.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+        <div class="card card-red-top svc-card"><div class="svc-icon">🎵</div><div class="svc-name">Audio Production</div><div class="svc-desc">Professional radio advert production, jingles, voice-overs, and podcast recording. Our studio-quality audio production ensures your brand sounds as good as it looks.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+        <div class="card card-red-top svc-card"><div class="svc-icon">📢</div><div class="svc-name">Radio Marketing &amp; Advertising</div><div class="svc-desc">Integrated on-air marketing campaigns tailored to your business goals. From live reads to sponsored segments — we design campaigns that convert listeners into customers.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+        <div class="card card-red-top svc-card"><div class="svc-icon">📡</div><div class="svc-name">Outside Broadcasting</div><div class="svc-desc">Take your event to the whole nation. Our outside broadcasting unit brings Bokamoso 974 to your venue — live, energetic, and connecting you directly with our audience.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+        <div class="card card-red-top svc-card"><div class="svc-icon">🎙</div><div class="svc-name">Podcast &amp; Recording</div><div class="svc-desc">Studio recording services for podcasts, interviews, voice-overs and more. Professional sound quality delivered fast — using our broadcast-grade recording facilities.</div><button class="btn btn-outline-red" style="align-self:flex-start" onclick="nav('contact')">Enquire</button></div>
+      </div>
+
+      <div class="rate-section-title" style="margin-top:48px">Services Pricing</div>
+      <div class="rate-table-wrap"><table class="rate-table"><tr><th>Service</th><th>Rate</th></tr>
+      <tr><td>5-Minute Interview (Live/Telephone)</td><td>M500</td></tr>
+      <tr><td>15-Minute Interview (Live/Telephone)</td><td>M1,500</td></tr>
+      <tr><td>30-Minute Interview</td><td>M3,000</td></tr>
+      <tr><td>1-Hour Interview</td><td>M4,800</td></tr>
+      <tr><td>Advert Production</td><td>M1,000</td></tr>
+      <tr><td>Outside Broadcasting</td><td>M5,000 – M10,000</td></tr>
+      <tr><td>Live Streaming</td><td>M3,000</td></tr>
+      <tr><td>Podcast / Record Session</td><td>M500</td></tr>
+      <tr><td>Naming Rights (30 min / 4 programs)</td><td>M6,000 – M16,000</td></tr>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CAMPAIGNS PAGE ===== -->
+<div id="page-campaigns" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Campaigns</span></div><h1>COMMUNITY <span>CAMPAIGNS</span></h1><p>Giving back to Lesotho — through CSI and outreach roadshow campaigns that reach every corner of the country.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="csi-grid">
+        <div class="csi-card">
+          <div class="csi-icon">❤️</div>
+          <div class="csi-name">CSI <span>CAMPAIGNS</span></div>
+          <div class="csi-desc">Corporate Social Investment campaigns that build Lesotho's communities. We partner with organisations and brands to amplify causes that matter — on air, online, and on the ground.</div>
+          <ul class="csi-list">
+            <li>On-air awareness and fundraising drives</li>
+            <li>Partnership with NGOs and government bodies</li>
+            <li>Education and health-focused campaigns</li>
+            <li>Dedicated airtime for CSI messaging</li>
+            <li>Social media amplification</li>
+          </ul>
+          <div style="margin-top:20px"><button class="btn btn-outline-red" onclick="nav('contact')">Partner With Us</button></div>
+        </div>
+        <div class="csi-card">
+          <div class="csi-icon">🚐</div>
+          <div class="csi-name">ROADSHOW <span>CAMPAIGNS</span></div>
+          <div class="csi-desc">Take your brand directly to communities across Lesotho. Our roadshow campaigns combine outside broadcasting, live activations, and on-air promotion into one powerful campaign.</div>
+          <ul class="csi-list">
+            <li>Live outside broadcasts from your venue</li>
+            <li>Presenter appearances and activations</li>
+            <li>On-air and social media promotion</li>
+            <li>Coverage across all three frequencies</li>
+            <li>Brand sampling and consumer engagement</li>
+          </ul>
+          <div style="margin-top:20px"><button class="btn btn-outline-red" onclick="nav('contact')">Plan a Roadshow</button></div>
+        </div>
+      </div>
+      <div style="margin-top:40px;text-align:center">
+        <p style="color:var(--muted2);max-width:560px;margin:0 auto 24px;line-height:1.7;font-size:14px">All campaigns are tailor-made to fit your objectives and budget. Contact our team to discuss how Bokamoso 974 can amplify your message across Lesotho.</p>
+        <button class="btn btn-red" onclick="nav('contact')">Start a Campaign</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div id="page-contact" class="page">
+  <div class="page-hero"><div class="wrap"><div class="breadcrumb">Home <span class="sep">›</span> <span>Contact Us</span></div><h1>GET IN <span>TOUCH</span></h1><p>Ready to advertise, partner with us, or just say hello? We'd love to hear from you.</p></div></div>
+  <div class="sec sec-dark">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <div class="sh"><h2 class="sh-title">SEND A <span>MESSAGE</span></h2></div>
+          <div class="cform">
+            <div><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+            <div><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+            <div><label>Phone Number</label><input type="tel" placeholder="+266 ..."></div>
+            <div><label>Subject</label>
+              <select>
+                <option>Advertising Enquiry</option>
+                <option>Corporate Package</option>
+                <option>Outside Broadcasting</option>
+                <option>Production Services</option>
+                <option>CSI / Campaigns</option>
+                <option>General Enquiry</option>
+              </select>
+            </div>
+            <div><label>Message</label><textarea placeholder="Tell us what you need..."></textarea></div>
+            <button class="btn btn-red" style="align-self:flex-start">Send Message →</button>
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="cinfo-card"><div class="cinfo-icon">📍</div><div><div class="cinfo-label">Physical Address</div><div class="cinfo-text">1010 Building, Ground Floor<br>Pitso Ground<br>Maseru, Lesotho</div></div></div>
+          <div class="cinfo-card"><div class="cinfo-icon">📞</div><div><div class="cinfo-label">Phone Numbers</div><div class="cinfo-text">+266 2232 2974<br>+266 5858 5177<br>+266 6616 0009</div></div></div>
+          <div class="cinfo-card"><div class="cinfo-icon">📡</div><div><div class="cinfo-label">Frequencies</div><div class="cinfo-text">97.4 FM — Maseru &amp; Berea<br>98.2 FM — Butha-Buthe, Leribe &amp; Mokhotlong<br>92.6 FM — Mohale's Hoek, Mafeteng &amp; Quthing</div></div></div>
+          <div class="cinfo-card"><div class="cinfo-icon">📘</div><div><div class="cinfo-label">Social Media</div><div class="cinfo-text"><a href="https://www.facebook.com/bokamoso974/" target="_blank" style="color:var(--red)">Facebook: @bokamoso974</a></div></div></div>
+          <div class="info-block" style="margin-top:8px"><h4>💼 For Business</h4><p>For advertising packages, partnerships, and custom campaign enquiries, please include your company name and campaign brief so our team can prepare a tailored proposal for you.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">BOKAMOSO <span>974</span></div>
+        <p>Lesotho's premier commercial radio station. Connecting communities, amplifying voices, and bridging Basotho culture since day one. Broadcasting on 97.4, 98.2 and 92.6 FM.</p>
+        <div class="foot-socs">
+          <a class="foot-soc" href="https://www.facebook.com/bokamoso974/" target="_blank">f</a>
+          <a class="foot-soc" href="#">𝕏</a>
+          <a class="foot-soc" href="#">◎</a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Station</h4>
+        <a onclick="nav('about')">About Us</a>
+        <a onclick="nav('about')">Corporate Profile</a>
+        <a onclick="nav('frequencies')">Frequencies</a>
+        <a onclick="nav('contact')">Contact Us</a>
+      </div>
+      <div class="foot-col"><h4>Programming</h4>
+        <a onclick="nav('shows')">Shows</a>
+        <a onclick="nav('presenters')">Presenters</a>
+        <a onclick="nav('schedule')">Schedule</a>
+      </div>
+      <div class="foot-col"><h4>Business</h4>
+        <a onclick="nav('advertise')">Advertise</a>
+        <a onclick="nav('rates')">Rate Card</a>
+        <a onclick="nav('services')">Our Services</a>
+        <a onclick="nav('campaigns')">CSI Campaigns</a>
+        <a onclick="nav('campaigns')">Roadshow Campaigns</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2025 <span>Bokamoso 97.4 FM</span> · 1010 Building, Pitso Ground, Maseru · +266 2232 2974</div>
+      <div class="foot-copy">97.4 · 98.2 · 92.6 FM</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ====================================
+// SCHEDULE DATA — real show names
+// ====================================
+const WEEKDAY = [
+  {start:0,  end:5,  name:'Nightshift',        pres:'Walter',              rate:'M250'},
+  {start:5,  end:6,  name:'AM News',            pres:'Chris Theko',         rate:'M300'},
+  {start:6,  end:9,  name:'974 Mornings',       pres:'Quizy & Miss E',      rate:'M300'},
+  {start:9,  end:12, name:'Midmorning Breeze',  pres:'Dramaqueen',          rate:'M300'},
+  {start:12, end:15, name:'PulsePoint',          pres:'Haps & Haps',         rate:'M300'},
+  {start:15, end:18, name:'974 Drive',           pres:'DJ Zero & KingJay',   rate:'M300'},
+  {start:18, end:19, name:'Motsong oa Teng',     pres:'Mojaki Thokojane',    rate:'M300'},
+  {start:19, end:21, name:'Sports Show',         pres:'Peterlex Mpakanyane', rate:'M250', days:[1,5]},
+  {start:19, end:21, name:'In Conversations',    pres:'Lehlohonolo Mpo',     rate:'M300', days:[2,3,4]},
+  {start:21, end:24, name:'Love Boat',           pres:'Makhosi Holeata',     rate:'M250'},
+];
+const SATURDAY = [
+  {start:0,  end:3,  name:'The Pump Up',        pres:'', rate:'M200'},
+  {start:3,  end:6,  name:'Music Time',         pres:'', rate:'M200'},
+  {start:6,  end:9,  name:'The AM Show',        pres:'', rate:'M300'},
+  {start:9,  end:12, name:'Maapara Kobo',       pres:'', rate:'M300'},
+  {start:12, end:15, name:'Crunch Time',        pres:'', rate:'M250'},
+  {start:15, end:18, name:'Mega Madness',       pres:'', rate:'M250'},
+  {start:18, end:22, name:'Saturday Lounge',    pres:'', rate:'M300'},
+  {start:22, end:24, name:'The Pump Up',        pres:'', rate:'M200'},
+];
+const SUNDAY = [
+  {start:0,  end:3,  name:'The Pump Up',         pres:'', rate:'M200'},
+  {start:3,  end:6,  name:'Music Time',          pres:'', rate:'M250'},
+  {start:6,  end:9,  name:'Spoken Word',         pres:'', rate:'M300'},
+  {start:9,  end:12, name:'Bokamoso Kids',       pres:'', rate:'M300'},
+  {start:12, end:15, name:'Love Sunday',         pres:'', rate:'M300'},
+  {start:15, end:18, name:'Rhythmic Connections',pres:'', rate:'M250'},
+  {start:18, end:21, name:'The Breeze',          pres:'', rate:'M250'},
+  {start:21, end:24, name:'Khoro ea Tumelo',     pres:'', rate:'M200'},
+];
+
+function getSchedule(dow) {
+  if (dow === 6) return SATURDAY;
+  if (dow === 0) return SUNDAY;
+  return WEEKDAY;
+}
+
+function currentShow() {
+  const now = new Date();
+  const dow = now.getDay();
+  const h = now.getHours() + now.getMinutes()/60;
+  const sched = getSchedule(dow);
+  for (const s of sched) {
+    if (h >= s.start && h < s.end) {
+      // handle day-specific slots
+      if (s.days && !s.days.includes(dow)) continue;
+      return s;
+    }
+  }
+  return sched[sched.length - 1];
+}
+
+function fmtTime(h) {
+  const hh = Math.floor(h) % 24;
+  return `${String(hh).padStart(2,'0')}:00`;
+}
+
+// ====================================
+// DYNAMIC ON-AIR UPDATER
+// ====================================
+function updateOnAir() {
+  const s = currentShow();
+  if (!s) return;
+  document.getElementById('onAirName').textContent = s.name;
+  document.getElementById('onAirWith').textContent = s.pres ? `— with ${s.pres}` : '';
+  document.getElementById('onAirTime').textContent = `${fmtTime(s.start)} – ${fmtTime(s.end)}`;
+  const t = `Now Playing: ${s.name}${s.pres ? ' with ' + s.pres : ''}`;
+  document.getElementById('tickerNow').textContent = t;
+  document.getElementById('tickerNow2').textContent = t;
+}
+updateOnAir();
+setInterval(updateOnAir, 60000);
+
+// ====================================
+// SCHEDULE RENDERER
+// ====================================
+function renderScheduleGrid(sched, dow) {
+  const now = new Date();
+  const curDow = now.getDay();
+  const curH = now.getHours() + now.getMinutes()/60;
+  let html = '<div class="sgrid on">';
+  for (const s of sched) {
+    const isNow = dow === curDow && curH >= s.start && curH < s.end && (!s.days || s.days.includes(dow));
+    html += `<div class="srow${isNow?' now':''}">
+      <span class="s-time">${fmtTime(s.start)} – ${fmtTime(s.end)}</span>
+      <span class="s-dot"></span>
+      <span class="s-name">${s.name}</span>
+      <span class="s-pres">${s.pres ? 'with <strong>' + s.pres + '</strong>' : ''}</span>
+      ${isNow ? '<span class="tag tag-live">On Air</span>' : ''}
+    </div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+// Build today's schedule on home
+function buildHomeSchedule() {
+  const now = new Date();
+  const dow = now.getDay();
+  const sched = getSchedule(dow);
+  document.getElementById('homeSchedule').innerHTML = renderScheduleGrid(sched, dow);
+}
+buildHomeSchedule();
+
+// Build full schedule page (5 tabs: Mon-Fri + Sat + Sun)
+function buildFullSchedule() {
+  const tabs = document.getElementById('dayTabs2');
+  const content = document.getElementById('fullScheduleContent');
+  const days = [
+    {label:'Monday',   dow:1, sched:WEEKDAY},
+    {label:'Tuesday',  dow:2, sched:WEEKDAY},
+    {label:'Wednesday',dow:3, sched:WEEKDAY},
+    {label:'Thursday', dow:4, sched:WEEKDAY},
+    {label:'Friday',   dow:5, sched:WEEKDAY},
+    {label:'Saturday', dow:6, sched:SATURDAY},
+    {label:'Sunday',   dow:0, sched:SUNDAY},
+  ];
+  const curDow = new Date().getDay();
+  let tabsHTML = '', contentHTML = '';
+  days.forEach((d,i) => {
+    const isCurrent = d.dow === curDow;
+    tabsHTML += `<button class="dtab${isCurrent?' on':''}" onclick="switchFullDay(${i}, this)">${d.label}</button>`;
+    contentHTML += `<div id="fs-${i}" class="sgrid${isCurrent?' on':''}">`;
+    for (const s of d.sched) {
+      const now = new Date();
+      const h = now.getHours() + now.getMinutes()/60;
+      const isNow = isCurrent && h >= s.start && h < s.end && (!s.days || s.days.includes(d.dow));
+      contentHTML += `<div class="srow${isNow?' now':''}">
+        <span class="s-time">${fmtTime(s.start)} – ${fmtTime(s.end)}</span>
+        <span class="s-dot"></span>
+        <span class="s-name">${s.name}</span>
+        <span class="s-pres">${s.pres ? 'with <strong>'+s.pres+'</strong>':''}</span>
+        ${isNow ? '<span class="tag tag-live">On Air</span>' : ''}
+      </div>`;
+    }
+    contentHTML += '</div>';
+  });
+  tabs.innerHTML = tabsHTML;
+  content.innerHTML = contentHTML;
+}
+
+function switchFullDay(i, btn) {
+  document.querySelectorAll('#dayTabs2 .dtab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('[id^="fs-"]').forEach(g => g.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('fs-'+i).classList.add('on');
+}
+
+// ====================================
+// SPA NAVIGATION
+// ====================================
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.dr-link').forEach(l => l.classList.remove('active'));
+  const target = document.getElementById('page-'+page);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('.dr-link').forEach(l => {
+    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'"+page+"'")) {
+      l.classList.add('active');
+    }
+  });
+  if (page === 'schedule') buildFullSchedule();
+  closeDrawer();
+}
+
+// ====================================
+// DRAWER
+// ====================================
+function openDrawer() {
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ====================================
+// WAVE BARS (hero)
+// ====================================
+const wc = document.getElementById('waveBars');
+for (let i = 0; i < 42; i++) {
+  const b = document.createElement('div');
+  b.className = 'bar';
+  b.style.height = (20 + Math.random()*80)+'%';
+  b.style.animationDelay = (Math.random()*1.5)+'s';
+  b.style.opacity = .2 + Math.random()*.7;
+  wc.appendChild(b);
+}
+
+// ====================================
+// PRESENTER CAROUSEL
+// ====================================
+let slide = 0;
+const track = document.getElementById('ptrack');
+const cards = track.querySelectorAll('.pcard');
+const dotsEl = document.getElementById('caroDots');
+const visCount = () => window.innerWidth < 600 ? 2 : window.innerWidth < 900 ? 3 : 5;
+const maxSlide = () => Math.max(0, Math.ceil(cards.length / visCount()) - 1);
+
+// Build dots
+function buildDots() {
+  dotsEl.innerHTML = '';
+  for (let i = 0; i <= maxSlide(); i++) {
+    const d = document.createElement('div');
+    d.className = 'cdot' + (i===slide?' on':'');
+    d.onclick = () => goSlide(i);
+    dotsEl.appendChild(d);
+  }
+}
+buildDots();
+window.addEventListener('resize', buildDots);
+
+function updateCarousel() {
+  const cw = cards[0].offsetWidth + 18;
+  track.style.transform = `translateX(-${slide * visCount() * cw}px)`;
+  document.querySelectorAll('.cdot').forEach((d,i) => d.classList.toggle('on', i===slide));
+}
+function nextSlide() { slide = slide >= maxSlide() ? 0 : slide+1; updateCarousel(); }
+function prevSlide() { slide = slide <= 0 ? maxSlide() : slide-1; updateCarousel(); }
+function goSlide(i) { slide = i; updateCarousel(); }
+setInterval(nextSlide, 4200);
+</script>
+</body>
+</html>
